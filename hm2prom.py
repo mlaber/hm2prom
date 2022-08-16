@@ -372,19 +372,7 @@ while True:
             channel_datapoints = get_datapoints_by_channel(channel)
 
 
-            try:                        #Debugging section enable fors and prints for debugging
-                #print("Channel_iseid(STR): %s" % channel)
-                #print("Channel_rooms(LIST): %s" % (channel_roomname))
-                #print("Channel_functions(LIST): %s" % (channel_functions))
-                #print("Channel_information(DICT): %s" % (channel_information))
-                #print("Datapoints of channel(LIST): %s" % (channel_datapoints))
-                #print("Parent Device(DICT): %s" % (channel_parent))
-                #for datapoint in channel_datapoints:
-                    #print("Channel_datapoints(DICT): %s" % (get_states_by_datapoint(datapoint)))
-                #for sysvar in sysvar_list:
-                    #print("System_variables(DICT): %s" % (get_state_by_sysvar(sysvar)))
-                #print("\n")
-
+            try:                  
                 for datapoint in channel_datapoints:  # Has to be called for every datapoint all labels have to be provided
                     current_datapoint=get_states_by_datapoint(datapoint)  # get the current datapoint dict
                     if current_datapoint is not None and str(current_datapoint.get('datapoint_value')) !='':
@@ -419,10 +407,6 @@ while True:
                     if current_sysvar is not None and current_sysvar.get('sysvar_value') is not None:
                         try:
                             if isinstance(current_sysvar.get('sysvar_value'), (int,float,complex)):  # Test if value is a number
-                                #print (current_sysvar.get('sysvar_value') ) #dbg
-                                #print ("IS A NUMBER") #DBG
-                                #print (current_sysvar.get('sysvar_value') ) #dbg
-                                #print ("\n") #dbg
                                 hm2prom_sysvar.labels(
                                 sysvar_ise_id=current_sysvar.get('sysvar_ise_id'),
                                 sysvar_name= current_sysvar.get('sysvar_name'),
@@ -434,9 +418,6 @@ while True:
                             if isinstance(current_sysvar.get('sysvar_value'), (str)):  # Test if variable is a string
                                     #print ("IS A STRING VARIABLE") #DBG
                                     if current_sysvar.get('sysvar_value').isnumeric() :  # Test if the string contains numeric values
-                                        #print (current_sysvar.get('sysvar_value') ) #dbg
-                                        #print ("IS A STRING WITH A NUMERIC Value") #DBG
-                                        #print ("\n") #dbg
                                         hm2prom_sysvar.labels(
                                         sysvar_ise_id=current_sysvar.get('sysvar_ise_id'),
                                         sysvar_name= current_sysvar.get('sysvar_name'),
@@ -457,9 +438,6 @@ while True:
                                             sysvar_value_unit=current_sysvar.get('sysvar_value_unit')).set(current_sysvar.get('sysvar_value'))
                                             
                                         except ValueError:
-                                            #print (current_sysvar.get('sysvar_value') ) #dbg
-                                            #print ("IS REALLY A STRING") #DBG
-                                            #print ("\n") #dbg
                                             hm2prom_sysvar.labels(
                                             sysvar_ise_id=current_sysvar.get('sysvar_ise_id'),
                                             sysvar_name= current_sysvar.get('sysvar_name'),
@@ -471,17 +449,9 @@ while True:
                                         else:
                                             def f():        # Python style NoOp 
                                                 pass
-                                            #print (current_sysvar.get('sysvar_value') ) #dbg
-                                            #print ("STRING WAS CONVERTED TO NUMERIC Value") #DBG
-                                            #print ("\n") #dbg
+                                    
                                    
 
-
-
-
-
-                        
-                            
                         except ValueError:  
                             print ("sysvar_value has unexpected type:")
                             print(current_sysvar)
