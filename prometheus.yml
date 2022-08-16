@@ -1,0 +1,5 @@
+  - job_name: 'Homematic_CCU'
+    #honor_labels: true
+    #query_log_file: /var/log/prometheus/query.log
+    static_configs:
+      - targets: ['localhost:9110'] #Host and port where hm2prom.py exposes the metrics for prometheus scraper
